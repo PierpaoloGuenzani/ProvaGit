@@ -1,5 +1,8 @@
 package strutturedati;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Alberibinari<E>
 {
 
@@ -7,60 +10,74 @@ public class Alberibinari<E>
 
     private class Nodo
     {
-
         private E dato;
         private Nodo sx, dx, precedente;
 
-        public Nodo(E dato)
-        {
+        public Nodo(E dato) {
             this.dato = dato;
         }
 
-        public E visita()
+        public void visita()
         {
-            return dato;
+            System.out.println(dato.toString());
         }
-        
-        public void preorder(Callable c)
+
+        public void preorder()
         {
-            c.call();
+            this.visita();
             if(sx != null)
             {
-                sx.postorder(c);
+                sx.preorder();
             }
             if(dx != null)
             {
-                dx.postorder(c);
+                dx.preorder();
             }
         }
-        
-        public void inorder(Callable c)
+
+        public void inorder()
         {
             if(sx != null)
             {
-                sx.postorder(c);
+                sx.inorder();
             }
-            c.call();
+            this.visita();
             if(dx != null)
             {
-                dx.postorder(c);
+                dx.inorder();
             }
         }
-                
-        public void postorder(Callable c)
+
+        public void postorder()
         {
             if(sx != null)
             {
-                sx.postorder(c);
+                sx.postorder();
             }
             if(dx != null)
             {
-                dx.postorder(c);
+                dx.postorder();
             }
-            c.call();
+            this.visita();
         }
-        
+
     }
+
+    public void preorder()
+    {
+        radice.preorder();
+    }
+
+    public void inorder()
+    {
+        radice.inorder();
+    }
+
+    public void postorder()
+    {
+        radice.postorder();
+    }
+
 
     public Alberibinari(E primo)
     {
@@ -70,10 +87,10 @@ public class Alberibinari<E>
 
     public void add(E dato)
     {
-        /*if(radice.sx == null)
+        if(radice.sx == null)
             radice.sx = new Nodo(dato);
-         */
-
+        else if(radice.dx == null)
+            radice.dx = new Nodo(dato);
     }
 
 }
